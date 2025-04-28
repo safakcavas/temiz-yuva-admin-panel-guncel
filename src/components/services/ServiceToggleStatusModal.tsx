@@ -63,48 +63,40 @@ const ServiceToggleStatusModal: React.FC<ServiceToggleStatusModalProps> = ({
     
     try {
       const token = localStorage.getItem('token');
-      
-      // API endpoint'lerini deneyelim
-      const endpoints = [
-        `${API_BASE_URL}/admin/services/${serviceId}`,
-        `${API_BASE_URL}/admin/service/${serviceId}`,
-        `${API_BASE_URL}/services/${serviceId}`
-      ];
-      
-      let serviceDetails = null;
-      
-      for (const endpoint of endpoints) {
-        try {
-          console.log(`Servis detayları alınıyor: ${endpoint}`);
-          const response = await axios.get(endpoint, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-          
-          if (response.data) {
-            const data = response.data.service || response.data;
-            serviceDetails = {
-              id: data.id || serviceId,
-              title: data.title || serviceName,
-              imageUrl: data.imageUrl || '',
-              shortDescription: data.shortDescription || '',
-              description: data.description || '',
-              price: data.price || 0,
-              isActive: currentStatus // mevcut durumu başlangıç değeri olarak kullan
-            };
-            console.log('Servis detayları alındı:', serviceDetails);
-            break;
-          }
-        } catch (err) {
-          console.log(`${endpoint} başarısız oldu, diğer endpoint deneniyor...`);
-        }
+      if (!token) {
+        console.error('Oturum bilgisi bulunamadı');
+        return;
       }
       
-      if (serviceDetails) {
-        setServiceData(serviceDetails);
-      } else {
-        // Detay alınamazsa minimal veri ile devam et
+      // Doğru endpoint'i kullan
+      const endpoint = `${API_BASE_URL}/api/admin/services/${serviceId}`;
+      console.log(`Servis detayları alınıyor: ${endpoint}`);
+      
+      try {
+        const response = await axios.get(endpoint, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        
+        if (response.data) {
+          // API yanıtı doğrudan servisi döndürebilir veya içinde service property'si olabilir
+          const data = response.data.service || response.data;
+          const serviceDetails = {
+            id: data.id || serviceId,
+            title: data.title || serviceName,
+            imageUrl: data.imageUrl || '',
+            shortDescription: data.shortDescription || '',
+            description: data.description || '',
+            price: data.price || 0,
+            isActive: typeof data.isActive !== 'undefined' ? data.isActive : currentStatus
+          };
+          console.log('Servis detayları alındı:', serviceDetails);
+          setServiceData(serviceDetails);
+        }
+      } catch (err) {
+        console.error(`${endpoint} başarısız oldu:`, err);
+        // Hata durumunda minimal veri ile devam et
         setServiceData({
           id: serviceId,
           title: serviceName,
@@ -131,109 +123,29 @@ const ServiceToggleStatusModal: React.FC<ServiceToggleStatusModalProps> = ({
     
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('Oturum bilgisi bulunamadı. Lütfen tekrar giriş yapın.');
+      }
+      
       const newStatus = !currentStatus;
       
-      // Servis verilerini kullan veya minimal veriyi oluştur
-      const currentService = serviceData || {
-        id: serviceId,
-        title: serviceName,
-        isActive: currentStatus
-      };
+      // Tek bir endpoint kullanarak durum değişikliği
+      const toggleUrl = `${API_BASE_URL}/service/${serviceId}/toggle-status`;
+      console.log(`PUT isteği yapılıyor: ${toggleUrl}`);
+      console.log('Gönderilen veri:', { isActive: newStatus });
       
-      // Güncellenmiş servis verisi
-      const updatedService = {
-        ...currentService,
-        isActive: newStatus
-      };
-      
-      // Farklı API endpoint ve istek tipleri deneyeceğiz
-      const apiEndpoints = [
-        // Sadece durum güncellemesi
+      const response = await axios.put(
+        toggleUrl,
+        { isActive: newStatus },
         {
-          url: `${API_BASE_URL}/admin/services/${serviceId}/status`,
-          method: 'patch',
-          data: { isActive: newStatus }
-        },
-        // Tam PUT isteği
-        {
-          url: `${API_BASE_URL}/admin/services/${serviceId}`,
-          method: 'put',
-          data: updatedService
-        },
-        // Sadece durumu PATCH ile güncelle
-        {
-          url: `${API_BASE_URL}/admin/services/${serviceId}`,
-          method: 'patch',
-          data: { isActive: newStatus }
-        },
-        // Alternatif endpoint
-        {
-          url: `${API_BASE_URL}/admin/service/${serviceId}`,
-          method: 'put',
-          data: updatedService
-        },
-        // ID olmadan istek dene
-        {
-          url: `${API_BASE_URL}/admin/services`,
-          method: 'put',
-          data: updatedService
-        }
-      ];
-      
-      let success = false;
-      let successResponse = null;
-      
-      // Her bir endpoint'i sırayla deneyelim
-      for (const endpoint of apiEndpoints) {
-        try {
-          console.log(`${endpoint.method.toUpperCase()} isteği deneniyor: ${endpoint.url}`);
-          console.log('Gönderilen veri:', endpoint.data);
-          
-          let response;
-          if (endpoint.method === 'patch') {
-            response = await axios.patch(
-              endpoint.url,
-              endpoint.data,
-              {
-                headers: {
-                  'Content-Type': 'application/json',
-                  Authorization: `Bearer ${token}`
-                }
-              }
-            );
-          } else {
-            response = await axios.put(
-              endpoint.url,
-              endpoint.data,
-              {
-                headers: {
-                  'Content-Type': 'application/json',
-                  Authorization: `Bearer ${token}`
-                }
-              }
-            );
-          }
-          
-          console.log(`API yanıtı başarılı:`, response.data);
-          success = true;
-          successResponse = response;
-          break;
-        } catch (err) {
-          if (axios.isAxiosError(err)) {
-            console.error(`${endpoint.url} denemesi başarısız oldu:`, {
-              status: err.response?.status,
-              data: err.response?.data,
-              message: err.message
-            });
-          } else {
-            console.error(`${endpoint.url} denemesi başarısız oldu:`, err);
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
           }
         }
-      }
+      );
       
-      if (!success) {
-        throw new Error('Hiçbir API isteği başarılı olmadı');
-      }
+      console.log(`API yanıtı başarılı:`, response.data);
       
       console.log(`Hizmet durumu başarıyla güncellendi: ${newStatus ? 'Aktif' : 'Pasif'}`);
       setSuccess(true);
@@ -249,7 +161,19 @@ const ServiceToggleStatusModal: React.FC<ServiceToggleStatusModalProps> = ({
       if (axios.isAxiosError(error)) {
         const status = error.response?.status || '';
         const responseData = error.response?.data ? JSON.stringify(error.response.data) : '';
-        setError(`Hizmet durumu güncellenirken bir hata oluştu (${status}): ${error.message}. ${responseData}`);
+        const config = error.config ? {
+          url: error.config.url,
+          method: error.config.method,
+          headers: error.config.headers
+        } : {};
+        
+        console.error('Axios hatası detayları:', {
+          status,
+          responseData,
+          config
+        });
+        
+        setError(`Sunucu ile iletişim kurulamadı. Lütfen daha sonra tekrar deneyiniz.`);
       } else if (error instanceof Error) {
         setError(`Hizmet durumu güncellenirken bir hata oluştu: ${error.message}`);
       } else {

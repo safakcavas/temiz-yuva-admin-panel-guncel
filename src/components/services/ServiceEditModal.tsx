@@ -102,59 +102,50 @@ const ServiceEditModal: React.FC<ServiceEditModalProps> = ({
         console.log("Debug Token kullanılıyor");
       }
       
-      // Farklı API endpoint formatlarını deniyoruz
-      const endpoints = [
-        `${apiBaseUrl}/admin/services/${serviceId}`,
-        `${apiBaseUrl}/admin/service/${serviceId}`,
-        `${apiBaseUrl}/services/${serviceId}`,
-        `${apiBaseUrl}/service/${serviceId}`
-      ];
+      // Doğru API endpoint'ini kullanıyoruz
+      const endpoint = `${apiBaseUrl}/api/admin/services/${serviceId}`;
+      console.log(`API isteği yapılıyor: ${endpoint}`);
       
-      let response;
-      let successfulEndpoint = '';
-      
-      for (const endpoint of endpoints) {
-        try {
-          console.log(`API isteği deneniyor: ${endpoint}`);
-          response = await axios.get(endpoint, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-          
-          if (response.data) {
-            console.log(`Başarılı yanıt alındı: ${endpoint}`);
-            successfulEndpoint = endpoint;
-            break;
+      try {
+        const response = await axios.get(endpoint, {
+          headers: {
+            Authorization: `Bearer ${token}`
           }
-        } catch (err) {
-          console.log(`${endpoint} başarısız oldu, diğer endpoint deneniyor...`);
-        }
-      }
-      
-      if (!response || !successfulEndpoint) {
-        throw new Error('Hiçbir API endpoint çalışmadı');
-      }
-      
-      console.log(`Çalışan endpoint: ${successfulEndpoint}`);
-      console.log("API yanıtı (data):", response.data);
-      
-      // API response directly has the service data without a service property
-      if (response.data && typeof response.data === 'object') {
-        const serviceData = response.data.service || response.data;
-        console.log("İşlenecek servis verisi:", serviceData);
-        
-        setFormData({
-          title: serviceData.title || '',
-          imageUrl: serviceData.imageUrl || '',
-          shortDescription: serviceData.shortDescription || '',
-          description: serviceData.description || '',
-          price: serviceData.price || 0,
-          isActive: serviceData.isActive !== undefined ? serviceData.isActive : true
         });
-      } else {
-        console.error("API yanıtı beklenen formatta değil:", response.data);
-        setError('Hizmet bilgileri geçerli formatta değil.');
+        
+        if (!response.data) {
+          throw new Error('API yanıtı boş veya geçersiz');
+        }
+        
+        console.log(`Başarılı yanıt alındı: ${endpoint}`);
+        console.log("API yanıtı (data):", response.data);
+        
+        // API response directly has the service data without a service property
+        if (response.data && typeof response.data === 'object') {
+          const serviceData = response.data.service || response.data;
+          console.log("İşlenecek servis verisi:", serviceData);
+          
+          setFormData({
+            title: serviceData.title || '',
+            imageUrl: serviceData.imageUrl || '',
+            shortDescription: serviceData.shortDescription || '',
+            description: serviceData.description || '',
+            price: serviceData.price || 0,
+            isActive: serviceData.isActive !== undefined ? serviceData.isActive : true
+          });
+        } else {
+          console.error("API yanıtı beklenen formatta değil:", response.data);
+          setError('Hizmet bilgileri geçerli formatta değil.');
+        }
+      } catch (err) {
+        console.error(`${endpoint} endpoint'i başarısız oldu:`, err);
+        if (axios.isAxiosError(err)) {
+          const status = err.response?.status || '';
+          const errMessage = err.response?.data?.message || err.message;
+          setError(`Hizmet bilgileri alınamadı (${status}): ${errMessage}`);
+        } else {
+          setError(`Hizmet bilgileri alınamadı: ${err instanceof Error ? err.message : 'Bilinmeyen hata'}`);
+        }
       }
     } catch (error) {
       console.error('Hizmet bilgileri yüklenirken hata oluştu (detaylı):', error);

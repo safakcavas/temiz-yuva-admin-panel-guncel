@@ -146,25 +146,63 @@ const ServicesPage: React.FC = () => {
   const showServiceDetails = async (service: Service) => {
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('Oturum bilgisi bulunamadı');
+        return;
+      }
       
-      const response = await axios.get(`${API_BASE_URL}/admin/services/${service.id}`, {
+      // Doğru endpoint'i kullan
+      const endpoint = `${API_BASE_URL}/admin/services/${service.id}`;
+      console.log(`Servis detayları alınıyor: ${endpoint}`);
+      
+      const response = await axios.get(endpoint, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
 
-      if (response.data.isSuccess) {
-        console.log("Hizmet detayı:", response.data);
-        // API yanıtında service doğrudan obje olarak geliyor olabilir
-        const serviceData = response.data.service || response.data;
+      console.log("API yanıtı:", response.data);
+      
+      // isSuccess kontrolü yapılıyor
+      if (response.data && response.data.isSuccess === true) {
+        // API yanıtında service objesi var mı kontrol ediliyor
+        if (response.data.service) {
+          setSelectedService({
+            ...response.data.service,
+            isActive: response.data.service.isActive !== undefined ? response.data.service.isActive : true
+          });
+          setShowViewModal(true);
+        } else {
+          console.error("API başarılı yanıt verdi fakat service verisi bulunamadı:", response.data);
+          alert("Hizmet detayları alınamadı: Service verisi bulunamadı");
+        }
+      } else if (response.data && typeof response.data === 'object' && !response.data.isSuccess) {
+        // API başarılı oldu ama isSuccess false ise
+        console.error("API hata bildirdi:", response.data);
+        alert(`Hizmet detayları alınamadı: ${response.data.message || 'Bilinmeyen hata'}`);
+      } else if (response.data && typeof response.data === 'object') {
+        // Doğrudan servis objesi dönmüş olabilir (isSuccess olmadan)
         setSelectedService({
-          ...serviceData,
-          isActive: serviceData.isActive !== undefined ? serviceData.isActive : true
+          ...response.data,
+          isActive: response.data.isActive !== undefined ? response.data.isActive : true
         });
         setShowViewModal(true);
+      } else {
+        console.error("API yanıtı boş veya geçersiz:", response.data);
+        alert("Hizmet detayları alınamadı: Geçersiz yanıt");
       }
     } catch (error) {
       console.error('Hizmet detayları alınırken hata oluştu:', error);
+      if (axios.isAxiosError(error)) {
+        console.error('Detay hatası:', {
+          status: error.response?.status,
+          data: error.response?.data,
+          url: error.config?.url
+        });
+        alert(`Hizmet detayları alınamadı: ${error.response?.data?.message || error.message}`);
+      } else {
+        alert("Hizmet detayları alınırken bir hata oluştu");
+      }
     }
   };
 

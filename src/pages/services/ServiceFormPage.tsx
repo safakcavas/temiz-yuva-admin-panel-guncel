@@ -21,7 +21,7 @@ interface ServiceFormData {
   price: number;
   isActive: boolean;
 }
-
+ 
 const ServiceFormPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -66,15 +66,26 @@ const ServiceFormPage: React.FC = () => {
       setError(null);
       
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${API_BASE_URL}/admin/services/${id}`, {
+      if (!token) {
+        setError('Oturum bilgisi bulunamadı. Lütfen tekrar giriş yapın.');
+        setLoading(false);
+        return;
+      }
+      
+      // Doğru endpoint'i kullan
+      const endpoint = `${API_BASE_URL}/admin/services/${id}`;
+      console.log(`Servis detayları alınıyor: ${endpoint}`);
+      
+      const response = await axios.get(endpoint, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
 
-      if (response.data.isSuccess) {
-        console.log("Hizmet detayı:", response.data);
-        // API yanıtında service doğrudan obje olarak geliyor olabilir
+      console.log("API yanıtı:", response.data);
+      
+      if (response.data) {
+        // API yanıtı doğrudan servisi döndürebilir veya içinde service property'si olabilir
         const serviceData = response.data.service || response.data;
         setFormData({
           title: serviceData.title || '',
@@ -85,11 +96,17 @@ const ServiceFormPage: React.FC = () => {
           isActive: serviceData.isActive !== undefined ? serviceData.isActive : true
         });
       } else {
-        setError('Hizmet bilgileri yüklenirken bir hata oluştu.');
+        setError('API yanıtı boş veya geçersiz.');
       }
     } catch (error) {
       console.error('Hizmet bilgileri yüklenirken hata oluştu:', error);
-      setError('Hizmet bilgileri yüklenirken bir hata oluştu.');
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status || '';
+        const message = error.response?.data?.message || error.message;
+        setError(`Hizmet bilgileri yüklenirken bir hata oluştu (${status}): ${message}`);
+      } else {
+        setError('Hizmet bilgileri yüklenirken bir hata oluştu.');
+      }
     } finally {
       setLoading(false);
     }
