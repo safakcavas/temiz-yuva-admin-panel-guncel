@@ -1,0 +1,133 @@
+/* İletişim Formları Sayfası */
+.contact-forms-page {
+  padding: 20px 0;
+}
+
+.page-title {
+  color: #0a6c3c;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Kart stilleri */
+.filter-card,
+.data-card {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.filter-card .card-body {
+  padding: 20px;
+}
+
+/* Form kontrolleri */
+.form-control:focus {
+  border-color: #0a6c3c;
+  box-shadow: 0 0 0 0.2rem rgba(10, 108, 60, 0.15);
+}
+
+.border-bottom {
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+/* Filtreler */
+.filter-dropdown,
+.filter-button {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  padding: 8px 15px;
+  border-radius: 4px;
+}
+
+.filter-clear-button {
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  height: 38px;
+}
+
+.results-badge {
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+  background-color: #0a6c3c;
+}
+
+.status-filter-badge {
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+/* Tablo stilleri */
+.contact-forms-table {
+  margin-bottom: 0;
+}
+
+.contact-forms-table thead th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #e9ecef;
+  padding: 12px 15px;
+  font-weight: 600;
+  color: #495057;
+}
+
+.contact-forms-table tbody td {
+  padding: 12px 15px;
+  vertical-align: middle;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.unread-row {
+  background-color: rgba(255, 252, 204, 0.2);
+  font-weight: 500;
+}
+
+.unread-row:hover {
+  background-color: rgba(255, 252, 204, 0.3);
+}
+
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.subject-text {
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.action-button {
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-forms-page {
+    padding: 10px;
+  }
+  
+  .filter-card .card-body,
+  .data-card .card-body {
+    padding: 15px;
+  }
+  
+  .contact-forms-table thead th {
+    padding: 10px;
+  }
+  
+  .contact-forms-table tbody td {
+    padding: 10px;
+  }
+  
+  .subject-text {
+    max-width: 150px;
+  }
+} 

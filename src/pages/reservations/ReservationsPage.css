@@ -1,0 +1,108 @@
+.reservations-page {
+  margin-bottom: 30px;
+}
+
+.reservation-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.reservation-table thead th {
+  background-color: #f8f9fa;
+  border: none;
+  padding: 15px;
+  font-weight: 600;
+  color: #495057;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+.reservation-table tbody td {
+  padding: 15px;
+  vertical-align: middle;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.reservation-table tr:hover {
+  background-color: rgba(10, 108, 60, 0.03);
+}
+
+.table-warning-subtle {
+  background-color: rgba(255, 193, 7, 0.1);
+}
+
+.table-primary-subtle {
+  background-color: rgba(10, 108, 60, 0.1);
+}
+
+.table-success-subtle {
+  background-color: rgba(25, 135, 84, 0.1);
+}
+
+.table-danger-subtle {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.table-dark-subtle {
+  background-color: rgba(33, 37, 41, 0.05);
+}
+
+.status-badge, .payment-badge {
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* Kalan tutar gösterimini daha belirgin yapalım */
+.small.text-danger {
+  font-weight: 500;
+  display: inline-block;
+  margin-top: 3px;
+  background-color: rgba(220, 53, 69, 0.1);
+  border-radius: 12px;
+  padding: 2px 6px;
+}
+
+.btn-icon {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.filter-select:focus {
+  box-shadow: none;
+  border-color: #0a6c3c;
+}
+
+@media (max-width: 992px) {
+  .reservation-table {
+    font-size: 0.9rem;
+  }
+  
+  .reservation-table thead th {
+    padding: 10px;
+    font-size: 0.75rem;
+  }
+  
+  .reservation-table tbody td {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .btn-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+} 

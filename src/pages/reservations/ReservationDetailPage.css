@@ -1,0 +1,164 @@
+.reservation-detail {
+  padding: 20px;
+}
+
+.reservation-page {
+  padding: 20px;
+}
+
+.card {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  padding: 15px 20px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.text-muted {
+  font-weight: 500;
+}
+
+.badge {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 6px;
+}
+
+.badge-pending {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.badge-confirmed {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.badge-completed {
+  background-color: #198754;
+  color: white;
+}
+
+.badge-cancelled {
+  background-color: #dc3545;
+  color: white;
+}
+
+.badge-rejected {
+  background-color: #6c757d;
+  color: white;
+}
+
+.modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.modal-footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Yeni Stil Tanımlamaları */
+.reservation-card .card-header {
+  padding: 16px 20px;
+}
+
+.payment-summary-card {
+  background-color: white;
+}
+
+.payment-card-body {
+  padding: 20px;
+}
+
+.price-container {
+  border-left: 4px solid #28a745;
+}
+
+.payment-progress {
+  margin: 15px 0;
+}
+
+.progress {
+  border-radius: 8px;
+  height: 8px !important;
+  background-color: #e9ecef;
+}
+
+.payment-details {
+  margin-top: 20px;
+}
+
+.nav-tabs .nav-link {
+  color: #6c757d;
+  padding: 10px 15px;
+  font-weight: 500;
+}
+
+.nav-tabs .nav-link.active {
+  color: #0a6c3c;
+  font-weight: 600;
+  border-bottom: 2px solid #0a6c3c;
+}
+
+/* Mobil duyarlı tasarım */
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 20px;
+  }
+  
+  .col-md-4.text-muted,
+  .col-md-6.text-muted {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .row.mb-2 {
+    margin-bottom: 15px !important;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .modal-dialog {
+    margin: 10px;
+  }
+}
+
+/* Yazdırma özellikleri */
+@media print {
+  .btn,
+  .modal,
+  .alert {
+    display: none !important;
+  }
+  
+  .card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    break-inside: avoid;
+  }
+  
+  body {
+    font-size: 12pt;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 100%;
+  }
+} 
