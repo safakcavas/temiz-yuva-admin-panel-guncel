@@ -25,44 +25,6 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Temiz Yuva Admin Paneli</title>
-    <!-- DevTools erişimini zorlaştırma -->
-    <script>
-      // F12, CTRL+SHIFT+I, CTRL+SHIFT+J, CTRL+SHIFT+C engelleme
-      document.addEventListener('keydown', function(e) {
-        if (
-          // F12
-          e.keyCode === 123 || 
-          // CTRL+SHIFT+I, CTRL+SHIFT+J, CTRL+SHIFT+C
-          (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) ||
-          // CTRL+U (kaynak görüntüleme)
-          (e.ctrlKey && e.keyCode === 85)
-        ) {
-          e.preventDefault();
-          return false;
-        }
-      });
-      
-      // Sağ tıklama menüsünü devre dışı bırakma
-      document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-        return false;
-      });
-      
-      // DevTools açık olup olmadığını sürekli kontrol et
-      function detectDevTools() {
-        const widthThreshold = window.outerWidth - window.innerWidth > 160;
-        const heightThreshold = window.outerHeight - window.innerHeight > 160;
-        
-        if (
-          !(window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) && 
-          (widthThreshold || heightThreshold)
-        ) {
-          document.body.innerHTML = '<div style="text-align:center;padding:50px;font-family:Arial;"><h1>Erişim Engellendi</h1><p>Geliştirici araçları kullanımı yasaktır.</p></div>';
-        }
-      }
-      
-      setInterval(detectDevTools, 1000);
-    </script>
   </head>
   <body>
     <noscript>Bu uygulamayı çalıştırmak için JavaScript'i etkinleştirmeniz gerekiyor.</noscript>
