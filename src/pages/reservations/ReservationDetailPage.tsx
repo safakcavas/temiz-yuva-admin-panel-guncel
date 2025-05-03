@@ -376,6 +376,7 @@ const ReservationDetailPage: React.FC = () => {
         startTime: statusFormData.startTime,
         endTime: statusFormData.endTime || statusFormData.startTime, // API için endTime gerekli
         notes: statusFormData.notes,
+        price: statusFormData.price,
         status: statusFormData.status
       };
       
@@ -406,6 +407,7 @@ const ReservationDetailPage: React.FC = () => {
           startTime: statusFormData.startTime,
           endTime: statusFormData.endTime,
           notes: statusFormData.notes,
+          price: statusFormData.price,
           status: statusFormData.status,
           statusText: statusString
         };
@@ -730,7 +732,7 @@ const ReservationDetailPage: React.FC = () => {
       setRatingSending(true);
       const token = localStorage.getItem('token');
       
-      // Doğru endpoint: /ratings/send-email
+      // Doğru endpoint: /admin/reservations/{id}/send-rating-reminder
       console.log(`Değerlendirme hatırlatması gönderiliyor. ID: ${id}`);
       
       await axios.post(`${API_BASE_URL}/ratings/send-email/${id}`, null, {
@@ -1161,6 +1163,18 @@ const ReservationDetailPage: React.FC = () => {
                     name="endTime"
                     value={statusFormData.endTime ? statusFormData.endTime.substring(0, 5) : ''}
                     onChange={handleStatusChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Fiyat (₺)</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="price"
+                    value={statusFormData.price}
+                    onChange={handleStatusChange}
+                    min={0}
                   />
                 </Form.Group>
               </Col>

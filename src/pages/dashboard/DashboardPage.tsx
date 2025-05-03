@@ -168,7 +168,8 @@ const DashboardPage: React.FC = () => {
   
   // Yüzde formatı
   const formatPercent = (percent: number) => {
-    return percent.toFixed(1) + '%';
+    // Yüzde değerlerini tam sayıya yuvarlayarak göster (66.666... -> 67%)
+    return Math.round(percent) + '%';
   };
   
   // Değişim yüzdesi için oklar
@@ -184,7 +185,7 @@ const DashboardPage: React.FC = () => {
         style={{ backgroundColor: color }}
       >
         <FontAwesomeIcon icon={icon} className="me-1" />
-        {Math.abs(value)}%
+        {Math.round(Math.abs(value))}%
       </Badge>
     );
   };
