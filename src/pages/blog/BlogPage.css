@@ -1,0 +1,320 @@
+/* Blog düzenleme modalı için özel stil */
+.blog-edit-modal-wide {
+  width: 95%;
+  max-width: 1400px;
+}
+
+.blog-edit-modal-wide .modal-body {
+  padding: 1.5rem;
+}
+
+.editor-toolbar .btn {
+  font-size: 0.8rem;
+  margin-right: 2px;
+}
+
+.editor-toolbar .btn-group {
+  margin-right: 0.5rem;
+}
+
+.preview-container {
+  background-color: white;
+  border-radius: 0.25rem;
+}
+
+/* Blog kartları için stil */
+.blog-card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.blog-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Kart butonları için stil */
+.blog-card .action-button {
+  opacity: 0.8;
+  transform: translateY(0);
+  transition: all 0.2s ease;
+}
+
+.blog-card:hover .action-button {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.blog-card .action-button:hover {
+  background-color: white;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* Blog tablo stilleştirmesi */
+.blog-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.blog-table th {
+  font-weight: 600;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.blog-table tr {
+  transition: background-color 0.2s;
+}
+
+.blog-table tr:hover {
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+.blog-table td, .blog-table th {
+  padding: 12px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Sayfanın ana stilleri */
+.blog-management-page {
+  background-color: #fafafa;
+  min-height: calc(100vh - 100px);
+}
+
+/* Blog detay modalı için stil */
+.blog-detail-modal .modal-content {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.blog-detail-modal .modal-header {
+  border-bottom: 1px solid #eaeaea;
+}
+
+.blog-detail-modal .modal-footer {
+  border-top: 1px solid #eaeaea;
+}
+
+/* Blog detay içeriği için özel stiller */
+.blog-detail-content {
+  background-color: #fff;
+}
+
+.blog-hero-image {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  transition: all 0.3s ease;
+}
+
+.blog-hero-overlay {
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+.blog-meta-card, .blog-actions-card {
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.blog-meta-card:hover, .blog-actions-card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.blog-meta-card .meta-item {
+  border-bottom: 1px dashed #eee;
+  padding-bottom: 10px;
+}
+
+.blog-meta-card .meta-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.blog-paper-effect {
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.blog-paper-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, #0a6c3c, #17a2b8);
+}
+
+/* Blog içerik stili */
+.blog-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 10px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.blog-content img:hover {
+  transform: scale(1.02);
+}
+
+.blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.blog-content h1 {
+  font-size: 1.8rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.blog-content h2 {
+  font-size: 1.5rem;
+}
+
+.blog-content h3 {
+  font-size: 1.3rem;
+}
+
+.blog-content h4 {
+  font-size: 1.1rem;
+}
+
+.blog-content p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.blog-content blockquote {
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  border-left: 4px solid #0a6c3c;
+  background-color: #f8f9fa;
+  font-style: italic;
+  color: #555;
+  transition: border-color 0.3s ease;
+}
+
+.blog-content blockquote:hover {
+  border-left-color: #17a2b8;
+  background-color: #f0f7fa;
+}
+
+.blog-content ul, .blog-content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.blog-content li {
+  margin-bottom: 0.5rem;
+}
+
+.blog-content a {
+  color: #0a6c3c;
+  text-decoration: none;
+  border-bottom: 1px dashed;
+  transition: all 0.3s ease;
+}
+
+.blog-content a:hover {
+  color: #17a2b8;
+  border-bottom-style: solid;
+}
+
+.blog-content table {
+  width: 100%;
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.blog-content table th,
+.blog-content table td {
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+}
+
+.blog-content table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.blog-content table tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.blog-content table tr:hover {
+  background-color: #f0f7fa;
+}
+
+.blog-content code {
+  background-color: #f8f9fa;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.875em;
+  color: #e83e8c;
+}
+
+.blog-content pre {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+/* Animasyonlar ve efektler */
+.meta-item, .blog-actions-card button {
+  transition: all 0.2s ease;
+}
+
+.blog-actions-card button:hover {
+  transform: translateY(-2px);
+}
+
+/* Aksiyon butonları için hover efektleri */
+.action-button {
+  transition: all 0.2s ease;
+  border-radius: 6px;
+}
+
+.action-button:hover {
+  background-color: #f0f7fa;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.action-button .action-icon {
+  transition: transform 0.2s ease;
+}
+
+.action-button:hover .action-icon {
+  transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+  .blog-edit-modal-wide {
+    width: 100%;
+  }
+  
+  .blog-management-page {
+    padding: 0.5rem;
+  }
+  
+  .blog-hero-image {
+    height: 180px !important;
+  }
+} 

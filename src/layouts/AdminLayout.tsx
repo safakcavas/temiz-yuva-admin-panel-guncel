@@ -56,7 +56,7 @@ const AdminLayout: React.FC = () => {
                 style={{
                   backgroundColor: isActive('/users') ? brandColor : 'transparent',
                   borderRadius: '6px',
-                  padding: '8px 12px'
+                  padding: '6px 8px'
                 }}
               >
                 Kullanıcılar
@@ -68,7 +68,7 @@ const AdminLayout: React.FC = () => {
                 style={{
                   backgroundColor: isActive('/services') ? brandColor : 'transparent',
                   borderRadius: '6px',
-                  padding: '8px 12px'
+                  padding: '6px 8px'
                 }}
               >
                 Hizmetler
@@ -80,7 +80,7 @@ const AdminLayout: React.FC = () => {
                 style={{
                   backgroundColor: isActive('/reservations') ? brandColor : 'transparent',
                   borderRadius: '6px',
-                  padding: '8px 12px'
+                  padding: '6px 8px'
                 }}
               >
                 Rezervasyonlar
@@ -92,10 +92,10 @@ const AdminLayout: React.FC = () => {
                 style={{
                   backgroundColor: isActive('/contact-forms') ? brandColor : 'transparent',
                   borderRadius: '6px',
-                  padding: '8px 12px'
+                  padding: '6px 8px'
                 }}
               >
-                İletişim Formları
+                İletişim
               </Nav.Link>
               <Nav.Link 
                 as={Link} 
@@ -104,7 +104,7 @@ const AdminLayout: React.FC = () => {
                 style={{
                   backgroundColor: isActive('/notifications') ? brandColor : 'transparent',
                   borderRadius: '6px',
-                  padding: '8px 12px'
+                  padding: '6px 8px'
                 }}
               >
                 Bildirimler
@@ -116,10 +116,22 @@ const AdminLayout: React.FC = () => {
                 style={{
                   backgroundColor: isActive('/ratings') ? brandColor : 'transparent',
                   borderRadius: '6px',
-                  padding: '8px 12px'
+                  padding: '6px 8px'
                 }}
               >
                 Değerlendirmeler
+              </Nav.Link>
+              <Nav.Link 
+                as={Link} 
+                to="/blog" 
+                className="fw-semibold mx-1"
+                style={{
+                  backgroundColor: isActive('/blog') ? brandColor : 'transparent',
+                  borderRadius: '6px',
+                  padding: '6px 8px'
+                }}
+              >
+                Blog
               </Nav.Link>
             </Nav>
             <Nav>
@@ -159,7 +171,7 @@ const AdminLayout: React.FC = () => {
 
       <footer style={{ backgroundColor: darkBrandColor }} className="text-white py-3">
         <Container>
-          <p className="text-center mb-0">© 2024 Temiz Yuva Admin Paneli <span className="ms-2 badge bg-light text-dark">v0.79</span></p>
+          <p className="text-center mb-0">© 2025 Temiz Yuva Admin Paneli <span className="ms-2 badge bg-light text-dark">v0.80</span></p>
         </Container>
       </footer>
     </div>

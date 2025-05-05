@@ -18,6 +18,7 @@ import ContactFormsPage from './pages/contact/ContactFormsPage';
 import ContactFormDetailPage from './pages/contact/ContactFormDetailPage';
 import NotificationsPage from './pages/notifications/NotificationsPage';
 import RatingsPage from './pages/ratings/RatingsPage';
+import BlogPage from './pages/blog/BlogPage';
 
 // Auth Provider
 import { AuthProvider, useAuth } from './contexts/AuthContext';
@@ -58,6 +59,7 @@ function App() {
             <Route path="contact-forms/:id" element={<ContactFormDetailPage />} />
             <Route path="notifications" element={<NotificationsPage />} />
             <Route path="ratings" element={<RatingsPage />} />
+            <Route path="blog" element={<BlogPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
